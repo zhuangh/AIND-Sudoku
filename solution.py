@@ -9,7 +9,7 @@ unitlist = row_units + column_units + square_units
 
 # TODO: Update the unit list to add the new diagonal units
 diagonal_units = [[rows[i]+cols[i] for i in range(9)],[rows[i]+cols[8-i] for i in range(9)]]
-unitlist = unitlist
+unitlist = unitlist + diagonal_units
 
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
@@ -87,15 +87,8 @@ def eliminate(values):
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     for box in solved_values:
         digit = values[box]
-        #print(values[box])
         for peer in peers[box]:
             d = values[peer].replace(digit,'')
-            #values[peer] = d
-            #print(peer) 
-            #print(values[peer])
-            #print(values[peer])
-            #digits = values[peer].replace(digit,'')
-            #print('->', digits)
             assign_value(values, peer, d)
     return values
 
@@ -149,7 +142,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
-        #values = naked_twins(values)
+        values = naked_twins(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
         if len([box for box in values.keys() if len(values[box]) == 0]):
