@@ -4,8 +4,10 @@ many additional test cases that you must also pass to complete the project. You 
 own additional test cases to cover any failed tests shown in the Project Assistant feedback.
 """
 import unittest
-import solution
-
+import solution 
+import sys
+sys.path.insert(0,'..')
+from utils import *
 
 class TestNakedTwins(unittest.TestCase):
     before_naked_twins_1 = {'I6': '4', 'H9': '3', 'I2': '6', 'E8': '1', 'H3': '5', 'H7': '8', 'I7': '1', 'I4': '8',
@@ -97,6 +99,10 @@ class TestDiagonalSudoku(unittest.TestCase):
                           'D1': '5'}
 
     def test_solve(self):
+        print()
+        display(grid2values(self.diagonal_grid))
+        display(solution.solve(self.diagonal_grid))
+        display(self.solved_diag_sudoku)
         self.assertEqual(solution.solve(self.diagonal_grid), self.solved_diag_sudoku)
 
 if __name__ == '__main__':

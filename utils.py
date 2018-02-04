@@ -80,6 +80,7 @@ def grid2values(grid):
             sudoku_grid[key] = '123456789'
         else:
             sudoku_grid[key] = val
+    #print(sudoku_grid)
     return sudoku_grid
 
 
