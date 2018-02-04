@@ -42,8 +42,6 @@ def naked_twins(values):
     and because it is simpler (since the reduce_puzzle function already calls this
     strategy repeatedly).
     """
-    # TODO: Implement this function!
-    #print(values)
     for unit in unitlist:
         vals = [values[pos] for pos in unit]
         v_list = {}
@@ -54,16 +52,12 @@ def naked_twins(values):
         for k, cnt in v_list.items():
             if cnt == 2:
                 twins_key.append(k)
-        #if len(twins_key) > 0:
-        #    print(twins_key) 
         for pos in unit:
             for twin in twins_key:
                 if values[pos] != twin: # not twin itsef
                     for val in twin:
-                        #values[pos] = 
                         d = values[pos].replace(val,'')
                         assign_value(values, pos, d)
-    #print(values)
     return values
 
 
@@ -169,16 +163,13 @@ def search(values):
     You should be able to complete this function by copying your code from the classroom
     and extending it to call the naked twins strategy.
     """
-    # TODO: Copy your code from the classroom to complete this function
     values = reduce_puzzle(values)
     # Choose one of the unfilled squares with the fewest possibilities
     if values is False:
         return False
     if all(len(values[s]) == 1 for s in boxes):
         return values
-    # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
     m, s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
-    # If you're stuck, see the solution.py tab!
     for value in values[s]:
         ns = values.copy()
         ns[s] = value
